@@ -18,6 +18,7 @@ public class AbstractModel<T> {
 	private int totalItem;
 	private String sortName;
 	private String sortBy;
+	private String type;
 
 	public Long getId() {
 		return id;
@@ -123,4 +124,11 @@ public class AbstractModel<T> {
 		this.sortBy = sortBy;
 	}
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 }

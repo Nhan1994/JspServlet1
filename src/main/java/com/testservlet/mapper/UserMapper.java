@@ -18,7 +18,6 @@ public class UserMapper implements RowMapper<UserModel>{
 			user.setFullName(rs.getString("fullname"));
 			user.setStatus(rs.getInt("status"));
 			user.setRoleId(rs.getLong("roleid"));
-			user.setCreatedDate(rs.getTimestamp("createddate"));
 			user.setCreatedBy(rs.getString("createdby"));
 			if (rs.getTimestamp("modifieddate") != null) {
 				user.setModifiedDate(rs.getTimestamp("modifieddate"));

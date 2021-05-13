@@ -17,4 +17,6 @@ public interface INewService {
 	List<News> findAll(Pageable pageable);
 	
 	int getTotalItems();
+
+	News findOne(long id);
 }
