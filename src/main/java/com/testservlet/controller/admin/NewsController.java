@@ -46,10 +46,26 @@ public class NewsController extends HttpServlet {
 			view = "/views/admin/news/edit.jsp";
 			if (model.getId() != null) {
 				model = newService.findOne(model.getId());
-			} else {
-
 			}
 			req.setAttribute("categories", categoryService.findAll());
+		}
+
+		if (req.getAttribute("message") != null){
+			String msgResponse = "";
+			String alert = "";
+			String msg = (String) req.getAttribute("message");
+			if (msg.equals("insert_success")){
+				msgResponse ="Insert succesfully";
+				alert = "success";
+			} else if (msg.equals("update_success")){
+				msgResponse ="Update succesfully";
+				alert = "success";
+			} else if (msg.equals("error")){
+				msgResponse ="Error";
+				alert = "danger";
+			}
+			req.setAttribute("messageResponse", msgResponse);
+			req.setAttribute("alert", alert);
 		}
 		req.setAttribute("model", model);
 		RequestDispatcher requestDispatcher = req.getRequestDispatcher(view);

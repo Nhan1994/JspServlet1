@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/common/taglib.jsp" %>
 <c:url var="APIurl" value="/news"/>
+<c:url var="NewURL" value="/admin-news-list"/>
 <html>
 <head>
     <title>Chỉnh sửa bài viết</title>
@@ -64,7 +65,7 @@
                             <label class="col-sm-3 control-label no-padding-right">Avatar</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="thumbnail" name="thumbnail"
-                                       value=""/>
+                                       value="${model.thumbnail}"/>
                             </div>
                         </div>
                         <br/>
@@ -81,8 +82,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right">Content</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="content" name="content"
-                                       value="${model.content}"> </input>
+                                <textarea rows="" cols="" id="content" name="content" style="width: 820px;height: 175px">${model.content}</textarea>
                             </div>
                         </div>
                         <br/>
@@ -108,6 +108,12 @@
     </div>
 </div>
 <script>
+    var editor = '';
+    $(document).ready(function () {
+        editor = CKEDITOR.replace('content');
+    });
+
+
     $('#btnAddOrUpdateNew').click(function (e) {
         e.preventDefault();
         // var title = $('#title').val();
@@ -120,7 +126,7 @@
         $.each(form, function (index, value) {
             data[""+value.name+""] = value.value;
         });
-
+        data["content"] = editor.getData();
         var id = $('#id').val();
         if (id == "") {
             addNews(data);
@@ -136,10 +142,10 @@
                 data : JSON.stringify(data),
                 dataType : 'json',
                 success: function (result) {
-                    console.log(result);
+                    window.location.href = "${NewURL}?type=list&maxPageItem=2&page=1&message=insert_success";
                 },
                 error: function(error) {
-                    console.log(error);
+                    window.location.href = "${NewURL}?type=list&maxPageItem=2&page=1&message=error";
                 }
             });
         }
@@ -152,10 +158,10 @@
                 data : JSON.stringify(data),
                 dataType : 'json',
                 success: function (result) {
-                    console.log(result);
+                    window.location.href = "${NewURL}?type=list&maxPageItem=2&page=1&message=update_success";
                 },
                 error: function(error) {
-                    console.log(error);
+                    window.location.href = "${NewURL}?type=list&maxPageItem=2&page=1&message=error";
                 }
             });
         }
